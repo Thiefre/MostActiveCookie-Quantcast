@@ -52,8 +52,8 @@ def most_active_cookies(date, file):
     # Walk through the array to print the most active cookies
     for key in max_keys:
         print(key)
+        
     #Total run time = O(N+M+E)
-    
     return max_keys
 
 def parse_command_line_args():
