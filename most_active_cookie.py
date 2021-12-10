@@ -6,8 +6,10 @@ Created on Thu Dec  9 20:19:01 2021
 """
 
 # Using Python shell, command is: python most_active_cookie.py FILENAME -d DATE
+# If a DATE is NOT provided, it will display the most active cookie from the entire file; meaning date is disregarded
+# If a DATE is provided, it will display the most active cookie from only that date
 
-import sys
+import argparse
 
 def most_active_cookies(date, file):
     
@@ -55,11 +57,19 @@ def most_active_cookies(date, file):
     return max_keys
 
 def parse_command_line_args():
-    date = "" # initial value of date variable, used to store the date from the CL arg
-    file = open(sys.argv[1]) # open cookie_logs file, with file name provided by CL arg
-    # Checks if date arguments are given
-    if(len(sys.argv) > 2):
-        date = sys.argv[3]
+    
+    parser = argparse.ArgumentParser(description = 'Process date in UTC.')
+    parser.add_argument('file', help = "file path of .csv for cookie_log", type = str)
+    parser.add_argument('-d', dest = 'bool_date', action = 'store_true', help = 'boolean identifier for date')
+    parser.add_argument('datetime', nargs= "?", default = "", help = "date in UTC", type = str)
+    
+    args = parser.parse_args()
+    
+    date = args.datetime # initial value of date variable, used to store the date from the CL arg
+    file = open(args.file) # open cookie_logs file, with file name provided by CL arg
+    # Checks if date argument '-d' is given
+    if(args.bool_date is True):
+        date = args.datetime
     return date, file
 
 def main():
