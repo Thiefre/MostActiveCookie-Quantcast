@@ -24,7 +24,7 @@ def most_active_cookies(date, file_name):
         try:
             date_obj = datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
-            print(date, "is not a valid date, printing most active cookie disregarding date:")
+            print(date, ": Not a valid date or date is not provided, printing most active cookie disregarding date:")
             date = ""
         
         for line in opened_file:
